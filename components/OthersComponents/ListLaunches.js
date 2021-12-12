@@ -20,7 +20,8 @@ export default function ListLaunches() {
   },[loading])
   
   useEffect(()=>{
-      loadServerRows()
+      
+      setTimeout(loadServerRows.bind(null),2000) 
   },[])
 
   useEffect(()=>{
@@ -75,7 +76,9 @@ export default function ListLaunches() {
           {
               loadedRows.map(({id,details,name,success,links,stripe,date})=>(
                 <Box key={id} sx={{width: "345px",flexGrow:"1",border:`2px solid ${success?'#4CAF50':'#C0433A'}`, margin:"10px" , borderRadius:"10px",minheight:"100px",padding:"10px" }}>
-                  <div style={{textAlign:"center"}}><div sx={{backgroundColor:"grey",padding:"10px",display:"inline-block",backgroundColor:"grey",borderRadius:"50%"}}><Avatar  sx={{ width: "100px", height: "100px"}} variant="cilcular"  alt="Travis Howard" src={stripe} /></div></div>
+                  <Box sx={{textAlign:"center"}}>
+                    <Box sx={{backgroundColor:"grey",padding:"10px",display:"inline-block",backgroundColor:"grey",borderRadius:"50%"}}>
+                   <Avatar  sx={{ width: "100px", height: "100px"}} variant="cilcular"  alt="Travis Howard" src={stripe} /></Box></Box>
                   <Box sx={{flexGrow:"0",color:"#005288"}} component="h1">{name}</Box>
                   <Box sx={{flexGrow:"0",color:"#A7A9AC"}} component="span">{date.toLocaleDateString()}&nbsp;&nbsp;{String(date.getHours()).padStart(2,"0")}:{String(date.getMinutes()).padStart(2,"0")}</Box> 
                   <Divider sx={{marginTop:"10px"}} />
@@ -83,10 +86,10 @@ export default function ListLaunches() {
                 </Box>)
                 )
           }
-        <Box sx={{width:"100%",textAlign:"center",paddingBottom:"100px"}}><CircularProgress /></Box>  
+        <Box sx={{width:"100%",textAlign:"center",padding:"100px 0"}}><CircularProgress /></Box>  
         </Box>
         
-     ss
+     
     </Box>
   );
 }
