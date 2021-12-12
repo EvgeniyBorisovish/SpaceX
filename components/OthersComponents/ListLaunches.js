@@ -74,7 +74,7 @@ export default function ListLaunches() {
         <Box sx={{ display:"flex",flexWrap:"wrap", flexGrow:"1",overflow:"auto"}}  onScroll={scrollHandler}>
           {
               loadedRows.map(({id,details,name,success,links,stripe,date})=>(
-                <Box sx={{width: "345px",flexGrow:"1",border:`2px solid ${success?'#4CAF50':'#C0433A'}`, margin:"10px" , borderRadius:"10px",minheight:"100px",padding:"10px" }}>
+                <Box key={id} sx={{width: "345px",flexGrow:"1",border:`2px solid ${success?'#4CAF50':'#C0433A'}`, margin:"10px" , borderRadius:"10px",minheight:"100px",padding:"10px" }}>
                   <div style={{textAlign:"center"}}><div sx={{backgroundColor:"grey",padding:"10px",display:"inline-block",backgroundColor:"grey",borderRadius:"50%"}}><Avatar  sx={{ width: "100px", height: "100px"}} variant="cilcular"  alt="Travis Howard" src={stripe} /></div></div>
                   <Box sx={{flexGrow:"0",color:"#005288"}} component="h1">{name}</Box>
                   <Box sx={{flexGrow:"0",color:"#A7A9AC"}} component="span">{date.toLocaleDateString()}&nbsp;&nbsp;{String(date.getHours()).padStart(2,"0")}:{String(date.getMinutes()).padStart(2,"0")}</Box> 
@@ -86,7 +86,7 @@ export default function ListLaunches() {
         <Box sx={{width:"100%",textAlign:"center",paddingBottom:"100px"}}><CircularProgress /></Box>  
         </Box>
         
-     
+     ss
     </Box>
   );
 }
