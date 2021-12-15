@@ -1,14 +1,60 @@
 import { Avatar, Box, CircularProgress, Divider} from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { Observer } from 'mobx-react';
 import {useState,useRef,useEffect} from 'react';
 
 
 
 
 
-export default Observer( function ListLaunches({mainStore}) {
+export default function ListLaunches() {
   
+  const [loading, setLoading] = useState(false);
+  const [loadedRows, setLoadedRows] = useState([]);
+  const hasNextPage = useRef(true)
+  const page = useRef(0)
+
+  useEffect(()=>{
+      if (loading){
+       setTimeout(loadServerRows.bind(null),2000) 
+      }
+    
+  },[loading])
+  
+  useEffect(()=>{
+      
+      setTimeout(loadServerRows.bind(null),2000) 
+  },[])
+
+  useEffect(()=>{
+    if (loading){setLoading(false)}
+},[loadedRows])
+
+
+  const loadServerRows = async (limit_count=30) => {
+
+    if (!hasNextPage.current){ setLoading(false); return }
+     
+     page.current = page.current+1
+
+     
+
+     const res = await fetch("https://api.spacexdata.com/v4/launches/query", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ options: { page: page.current, limit: limit_count } })
+        })
+      
+     const docs = await res.json()
+      
+     hasNextPage.current = docs.hasNextPage
+     const newDocs =  docs.docs.map(({id,details,name,success,links,date_utc})=>({id,name,details,success,stripe:links.patch.small,date:new Date(date_utc)}))
+        
+     setLoadedRows([...loadedRows,...newDocs]
+      )
+  };
+
   const scrollHandler = (e) => {
     
     
@@ -47,5 +93,15 @@ export default Observer( function ListLaunches({mainStore}) {
      
     </Box>
   );
-})
+}
 
+/*
+<div >
+                <div>{id}</div>     
+                <div>{name}</div>     
+                <div>{success}</div>     
+                <div>{stripe}</div>     
+                <div>{date}</div>
+            </div>
+
+*/

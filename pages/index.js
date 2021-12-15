@@ -1,9 +1,10 @@
-import ListLaunches from "../components/OthersComponents/ListLaunches";
+import ListLaunches from "../components/OthersComponents/ListLaunchesOld";
+import main from "../store/main";
 
 export default function Home() {
   return (
     <div >
-     <ListLaunches/>
+     <ListLaunches mainStore={main}/>
     </div>
   )
 }
